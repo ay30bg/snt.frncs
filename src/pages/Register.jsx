@@ -1,0 +1,120 @@
+import React, { useState } from "react";
+import "../styles/authPage.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useAuth } from "../App"; // ✅ import auth context
+
+export default function SignupPage() {
+  const { login } = useAuth(); // ✅ from AuthContext
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    setLoading(true);
+    console.log("Signup with:", { email, password });
+
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+
+      // ✅ Fake user object (replace with API result)
+      const newUser = { email, name: "New User" };
+
+      // ✅ Log them in immediately
+      login(newUser);
+
+      // ✅ Redirect back to where they came from or home
+      const redirectTo = location.state?.from || "/";
+      navigate(redirectTo, { replace: true });
+    }, 2000);
+  };
+
+  return (
+    <div className="auth-page">
+      <div className="auth-container">
+        <h1>Register</h1>
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          {/* Email */}
+          <div className="form-group">
+            <label>Email Address *</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Password */}
+          <div className="form-group password-group">
+            <label>Password *</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          {/* Confirm Password */}
+          <div className="form-group password-group">
+            <label>Confirm Password *</label>
+            <div className="password-wrapper">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          {/* Submit */}
+          <button type="submit" className="auth-btn" disabled={loading}>
+            {loading ? <span className="spinner"></span> : "Sign Up"}
+          </button>
+        </form>
+
+        <div className="auth-links">
+          <p>
+            Already a member? <Link to="/auth">Login</Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

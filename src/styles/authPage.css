@@ -1,0 +1,204 @@
+/* Import Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* --- Auth Page Wrapper --- */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #fff;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 0;
+}
+
+/* --- Auth Container --- */
+.auth-container {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 0;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.auth-container h1 {
+  margin-top: -90px;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0f172a;
+}
+
+/* --- Form --- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.password-group {
+  margin-top: 10px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #888;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #444;
+}
+
+/* --- Password Toggle --- */
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+}
+
+/* --- Button --- */
+.auth-btn {
+  background: #000;
+  color: #fff;
+  padding: 0.9rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-transform: uppercase;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* --- Links --- */
+.auth-links {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.auth-links a {
+  color: #3C4655;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* --- Social Buttons --- */
+.social-login {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.social-login button {
+  padding: 0.9rem;
+  border: 1px solid #cbd5e1;
+  background: #f9fafb;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.google-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  color: #111;
+  border-radius: 0;
+  background: #fff;
+}
+
+.google-btn:hover {
+  background: #f1f5f9;
+}
+
+/* Remember Me + Forgot Password Row */
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: -0.5rem 0 1rem;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.remember-me input {
+  accent-color: #fff;
+  cursor: pointer;
+}
+
+.remember-me label {
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  color: #000;
+}
+
+.forgot-link {
+  color: #111;
+  text-decoration: underline;
+  font-weight: lighter;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+

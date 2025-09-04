@@ -1,0 +1,194 @@
+/* Import Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+/* Global Font */
+.wishlist-page,
+.wishlist-page * {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Wishlist Page */
+/* Center content in the page */
+.wishlist-page {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;     /* horizontal center */
+    min-height: 100vh;       /* full height */
+    padding: 2rem;
+    text-align: center;
+}
+
+.wishlist-page h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.wishlist-page p {
+    font-size: 1rem;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+/* Return to Shop Button */
+.return-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.6rem;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.return-btn:hover {
+    background: #fff;
+    color: #000;
+    border: 2px solid #888;
+}
+
+
+/* Header */
+.wishlist{
+    padding: 3rem 2rem; 
+    background: #fff; 
+    min-height: 100vh; 
+    color: #111;
+}
+
+.wishlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap; /* allows wrapping on small screens */
+    gap: 1rem;
+}
+
+.wishlist-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+}
+
+.clear-btn {
+    background: black;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: #000 solid 1px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    text-decoration: none;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.clear-btn:hover {
+    background-color: #fff;
+    color: #000;
+    border: #888 solid 1px;
+}
+
+/* Remove Button */
+.remove-btn {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    background: #f5f5f5;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+.remove-btn:hover {
+    background: #111;
+    color: #fff;
+}
+
+/* ---------------------------- */
+/* RESPONSIVENESS */
+/* ---------------------------- */
+
+/* Tablets (≤ 1024px) */
+@media (max-width: 1024px) {
+    .wishlist-page {
+        padding: 2rem 1.5rem;
+    }
+
+    .wishlist-header h2 {
+        font-size: 1.75rem;
+    }
+
+    .clear-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile (≤ 768px) */
+@media (max-width: 768px) {
+    .wishlist-page {
+        padding: 2rem 1rem;
+    }
+
+    .wishlist-header {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .wishlist-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .clear-btn {
+        width: 32%;
+        padding: 0.8rem;
+        text-align: center;
+    }
+
+    .remove-btn {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+}
+
+/* Small Phones (≤ 480px) */
+@media (max-width: 480px) {
+    .wishlist-page {
+        padding: 1.5rem 0.75rem;
+    }
+
+    .wishlist-header h2 {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .wishlist-header {
+        align-items: center;
+        text-align: center;
+    }
+
+    .clear-btn {
+        width: 40%;
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .remove-btn {
+        font-size: 0.8rem;
+        gap: 4px;
+    }
+}
