@@ -270,6 +270,7 @@
 import React, { useState } from "react";
 import "../styles/authPage.css"; // Your CSS file for styling
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Icons for password visibility toggle
+import { FcGoogle } from "react-icons/fc"; // Google icon for custom button
 import { useNavigate, useLocation, Link } from "react-router-dom"; // For navigation and routing
 import { useAuth } from "../App"; // Your auth context to manage user login
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"; // Google OAuth components
@@ -437,7 +438,7 @@ export default function AuthPage() {
             </button>
           </form>
 
-          {/* Google Login Button */}
+          {/* Custom Google Login Button */}
           <div className="social-login">
             <GoogleLogin
               onSuccess={handleGoogleLogin} // Called when Google login succeeds
@@ -445,9 +446,16 @@ export default function AuthPage() {
                 setError("Google login failed. Please try again.");
                 setLoading(false);
               }}
-              text="continue_with" // Button text: "Continue with Google"
-              theme="filled_black" // Dark button style
-              shape="rectangular" // Rectangular button
+              render={(renderProps) => (
+                <button
+                  className="google-btn"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled || loading}
+                >
+                  <FcGoogle size={20} style={{ marginRight: "10px" }} />
+                  Continue with Google
+                </button>
+              )}
             />
           </div>
 
