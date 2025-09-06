@@ -347,14 +347,13 @@
 // //   );
 // // }
 
-
 import React, { useState } from "react";
 import "../styles/authPage.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../App";
-import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 export default function AuthPage() {
   const { login } = useAuth();
@@ -368,6 +367,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Handle email/password login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -376,72 +376,57 @@ export default function AuthPage() {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
-      }
+      if (!response.ok) throw new Error(data.message || "Login failed");
 
       const { user, token } = data;
       login({ user, token });
 
-      if (rememberMe) {
-        localStorage.setItem("authToken", token);
-      }
+      if (rememberMe) localStorage.setItem("authToken", token);
 
       const redirectTo = location.state?.from || "/";
       navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err.message || "Something went wrong. Please try again.");
+    } finally {
       setLoading(false);
     }
   };
 
-  const handleGoogleLogin = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      setLoading(true);
-      setError("");
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/google-login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ token: tokenResponse.access_token }),
-        });
+  // Handle Google OAuth login
+  const handleGoogleLogin = async (credentialResponse) => {
+    setLoading(true);
+    setError("");
 
-        const data = await response.json();
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/google-auth`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ credential: credentialResponse.credential }),
+      });
 
-        if (!response.ok) {
-          throw new Error(data.message || "Google login failed");
-        }
+      const data = await response.json();
 
-        const { user, token } = data;
-        login({ user, token });
+      if (!response.ok) throw new Error(data.error || "Google login failed");
 
-        if (rememberMe) {
-          localStorage.setItem("authToken", token);
-        }
+      const { user, token } = data;
+      login({ user, token });
 
-        const redirectTo = location.state?.from || "/";
-        navigate(redirectTo, { replace: true });
-      } catch (err) {
-        setError(err.message || "Google login failed. Please try again.");
-        setLoading(false);
-      }
-    },
-    onError: () => {
-      setError("Google login failed. Please try again.");
+      if (rememberMe) localStorage.setItem("authToken", token);
+
+      const redirectTo = location.state?.from || "/";
+      navigate(redirectTo, { replace: true });
+    } catch (err) {
+      setError(err.message || "Google login failed. Please try again.");
+    } finally {
       setLoading(false);
-    },
-    scope: 'email profile', // Request access to email and profile
-  });
+    }
+  };
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
@@ -503,11 +488,12 @@ export default function AuthPage() {
             </button>
           </form>
 
+          {/* Google Login */}
           <div className="social-login">
-            <button className="google-btn" onClick={() => handleGoogleLogin()}>
-              <FcGoogle size={20} style={{ marginRight: "10px" }} />
-              Continue with Google
-            </button>
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => setError("Google login failed. Please try again.")}
+            />
           </div>
 
           <div className="auth-links">
@@ -520,3 +506,4 @@ export default function AuthPage() {
     </GoogleOAuthProvider>
   );
 }
+
