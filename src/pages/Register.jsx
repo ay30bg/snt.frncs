@@ -393,11 +393,11 @@ export default function SignupPage() {
             </div>
           </div>
 
-          {/* Submit */}
+        
          {/* Submit */}
-//           <button type="submit" className="auth-btn" disabled={loading}>
-//             {loading ? <span className="spinner"></span> : 'Register'}
-//           </button>
+       <button type="submit" className="auth-btn" disabled={loading}>
+         {loading ? <span className="spinner"></span> : 'Register'}
+       </button>
 
         <div className="auth-links">
           <p>
@@ -408,4 +408,5 @@ export default function SignupPage() {
     </div>
   );
 }
+
 
