@@ -205,6 +205,7 @@ body {
 
 .sidebar-bars{
     font-size: 20px;
+    color: black;
 }
 
 /* Close Button */
@@ -1298,3 +1299,4 @@ button:focus .spinner {
         opacity: 1;
     }
 }
+
