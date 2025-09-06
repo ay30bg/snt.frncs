@@ -395,9 +395,10 @@ export default function SignupPage() {
 
         
          {/* Submit */}
-       <button type="submit" className="auth-btn" disabled={loading}>
-         {loading ? <span className="spinner"></span> : 'Register'}
-       </button>
+           <button type="submit" className="auth-btn" disabled={loading}>
+            {loading ? <span className="spinner"></span> : 'Sign Up'}
+           </button>
+         </form>
 
         <div className="auth-links">
           <p>
@@ -408,5 +409,6 @@ export default function SignupPage() {
     </div>
   );
 }
+
 
 
