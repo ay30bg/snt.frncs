@@ -396,7 +396,7 @@ export default function SignupPage() {
         
          {/* Submit */}
            <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? <span className="spinner"></span> : 'Sign Up'}
+            {loading ? <span className="spinner"></span> : 'Register'}
            </button>
          </form>
 
@@ -409,6 +409,7 @@ export default function SignupPage() {
     </div>
   );
 }
+
 
 
 
