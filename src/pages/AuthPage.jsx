@@ -139,16 +139,16 @@ export default function AuthPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); // Added for error feedback
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(""); // Clear previous errors
+    setError("");
 
     try {
-      // Make API call to your backend
-      const response = await fetch("http://https://snt-frncs-backend-mauve.vercel.app/api/login", {
+      // Use environment variable for API URL
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -162,18 +162,17 @@ export default function AuthPage() {
         throw new Error(data.message || "Login failed");
       }
 
-      // Assuming the API returns { user: { email, name }, token }
       const { user, token } = data;
 
-      // Save user and token to context (update your login function to handle token if needed)
+      // Save user and token to context
       login({ user, token });
 
-      // If rememberMe is checked, store token in localStorage (or use cookies for better security)
+      // Store token in localStorage if rememberMe is checked
       if (rememberMe) {
         localStorage.setItem("authToken", token);
       }
 
-      // Redirect to the previous page or home
+      // Redirect to previous page or home
       const redirectTo = location.state?.from || "/";
       navigate(redirectTo, { replace: true });
     } catch (err) {
@@ -183,8 +182,8 @@ export default function AuthPage() {
   };
 
   const handleGoogleLogin = () => {
-    // TODO: Integrate Google OAuth (e.g., redirect to Google Auth URL or use a library like @react-oauth/google)
     console.log("Continue with Google clicked");
+    // TODO: Integrate Google OAuth
   };
 
   return (
@@ -192,7 +191,6 @@ export default function AuthPage() {
       <div className="auth-container">
         <h1>Login</h1>
 
-        {/* Display error message if any */}
         {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
