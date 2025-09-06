@@ -152,7 +152,7 @@ export default function SignupPage() {
 
     try {
       const response = await axios.post(
-        'https://snt-frncs-backend-mauve.vercel.app/api/signup', // Replaced process.env.REACT_APP_API_URL
+        `${process.env.REACT_APP_API_URL}/signup`,
         { email, password }
       );
 
