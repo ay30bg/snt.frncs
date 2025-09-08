@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "../assets/snt.francis_logo.png";
+import logo from "../assets/snt-frncs-new-logo.png";
 
 const quotes = [
   "All the darkness in the world cannot extinguish the light of a single candle.",
