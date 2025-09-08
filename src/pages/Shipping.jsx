@@ -282,7 +282,7 @@ export default function ShippingPage() {
 
     try {
       // Initialize payment via backend
-      const response = await fetch("http://snt-frncs-backend-mauve.vercel.app/api/payment/initialize", {
+      const response = await fetch("https://snt-frncs-backend-mauve.vercel.app/api/payment/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -306,7 +306,7 @@ export default function ShippingPage() {
         onSuccess: async (transaction) => {
           try {
             // Verify payment via backend
-            const verifyResponse = await fetch("http://snt-frncs-backend-mauve.vercel.app/api/payment/verify", {
+            const verifyResponse = await fetch("https://snt-frncs-backend-mauve.vercel.app/api/payment/verify", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -446,4 +446,5 @@ export default function ShippingPage() {
     </div>
   );
 }
+
 
