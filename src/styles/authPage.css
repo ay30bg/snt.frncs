@@ -135,7 +135,7 @@
 .social-login {
   margin-top: 1.5rem;
   display: flex;
-   width: 100%;
+  width: 100%;
   flex-direction: column;
   gap: 0.8rem;
 }
@@ -201,6 +201,7 @@
 .forgot-link:hover {
   text-decoration: underline;
 }
+
 
 
 
