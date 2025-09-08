@@ -9,7 +9,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/snt.francis_logo.png";
+import logo from "../assets/snt-frncs-new-logo.png";
 
 function Navbar({ cartCount, wishlistCount, onCartToggle }) {
   const [showSearch, setShowSearch] = useState(false);
@@ -258,4 +258,3 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
 }
 
 export default Navbar;
-
