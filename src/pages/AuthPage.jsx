@@ -145,9 +145,8 @@ export default function AuthPage() {
               onSuccess={handleGoogleLogin}
               onError={() => setError("Google login failed. Please try again.")}
               buttonText="Continue with Google"
-              theme="filled_blue"
               size="large"
-              width="330"
+              width="300"
             />
           </div>
 
@@ -161,6 +160,7 @@ export default function AuthPage() {
     </GoogleOAuthProvider>
   );
 }
+
 
 
 
