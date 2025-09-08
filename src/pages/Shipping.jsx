@@ -286,7 +286,7 @@ export default function ShippingPage() {
     try {
       // Initialize payment via backend using REACT_APP_API_URL
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/payment/initialize`,
+        `${process.env.REACT_APP_API_URL}/payment/initialize`,
         {
           email: user.email || "customer@example.com",
           amount: checkoutData.total,
@@ -322,7 +322,7 @@ export default function ShippingPage() {
             try {
               // Verify payment via backend using REACT_APP_API_URL
               const verifyResponse = await axios.get(
-                `${process.env.REACT_APP_API_URL}/api/payment/verify/${transaction.reference}`
+                `${process.env.REACT_APP_API_URL}/payment/verify/${transaction.reference}`
               );
               if (verifyResponse.data.status === "success") {
                 clearCart();
@@ -452,3 +452,4 @@ export default function ShippingPage() {
     </div>
   );
 }
+
