@@ -146,7 +146,7 @@ export default function AuthPage() {
               onError={() => setError("Google login failed. Please try again.")}
               buttonText="Continue with Google"
               size="large"
-              width="325"
+              width="320"
             />
           </div>
 
@@ -160,6 +160,7 @@ export default function AuthPage() {
     </GoogleOAuthProvider>
   );
 }
+
 
 
 
