@@ -243,11 +243,15 @@ export default function ShippingPage() {
   const [checkoutData, setCheckoutData] = useState({ cart: cartFromCheckout, total });
 
   useEffect(() => {
+    console.log("location.state:", location.state);
     const pending = JSON.parse(localStorage.getItem("pendingCheckout"));
     if (pending) {
       setCheckoutData(pending);
+    } else if (!cartFromCheckout?.length || !total) {
+      console.warn("Invalid cart data, redirecting to /cart");
+      navigate("/cart");
     }
-  }, []);
+  }, [cartFromCheckout, total, navigate]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -262,7 +266,9 @@ export default function ShippingPage() {
   };
 
   const handlePlaceOrder = async (finalAddress) => {
-    if (!user) {
+    // Validate user
+    if (!user || !user.email || !user.token) {
+      console.error("Invalid user object:", user);
       localStorage.setItem(
         "pendingCheckout",
         JSON.stringify({ cart: cartFromCheckout, total })
@@ -271,31 +277,46 @@ export default function ShippingPage() {
       return;
     }
 
+    // Validate form
     if (!validateForm()) {
+      console.error("Form validation failed:", errors);
       setLoading(false);
+      return;
+    }
+
+    // Validate checkout total
+    if (!Number.isFinite(checkoutData.total) || checkoutData.total <= 0) {
+      console.error("Invalid checkout total:", checkoutData.total);
+      setLoading(false);
+      alert("Error: Cart total is invalid or zero");
       return;
     }
 
     setLoading(true);
 
     try {
+      // Prepare and log payload
+      const payload = {
+        email: user.email,
+        amount: checkoutData.total,
+        fullName: finalAddress.fullName,
+        phone: finalAddress.phone,
+      };
+      console.log("Sending payload to backend:", payload);
+
       // Initialize transaction via backend
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/payment/initialize`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/initialize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${user.token}`, // Matches auth.js JWT format
+          "Authorization": `Bearer ${user.token}`,
         },
-        body: JSON.stringify({
-          email: user.email,
-          amount: checkoutData.total,
-          fullName: finalAddress.fullName,
-          phone: finalAddress.phone,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
       if (response.status !== 201) {
+        console.error("Backend error:", result);
         setLoading(false);
         alert(`Error: ${result.message}`);
         return;
@@ -316,7 +337,7 @@ export default function ShippingPage() {
           try {
             // Verify transaction via backend
             const verifyResponse = await fetch(
-              `${process.env.REACT_APP_API_URL}/payment/verify/${transaction.reference}`,
+              `${process.env.REACT_APP_API_URL}/api/payment/verify/${transaction.reference}`,
               {
                 headers: {
                   "Authorization": `Bearer ${user.token}`,
@@ -351,9 +372,11 @@ export default function ShippingPage() {
                 },
               });
             } else {
+              console.error("Verification failed:", verifyResult);
               alert("Payment verification failed: " + verifyResult.message);
             }
           } catch (verifyError) {
+            console.error("Verification error:", verifyError);
             alert(`Verification error: ${verifyError.message}`);
           } finally {
             setLoading(false);
@@ -364,11 +387,13 @@ export default function ShippingPage() {
           alert("Payment was cancelled. Please try again.");
         },
         onError: (error) => {
+          console.error("Paystack error:", error);
           setLoading(false);
           alert(`Payment failed: ${error.message}`);
         },
       });
     } catch (error) {
+      console.error("Frontend error:", error);
       setLoading(false);
       alert(`Error: ${error.message}`);
     }
@@ -471,4 +496,3 @@ export default function ShippingPage() {
     </div>
   );
 }
-
