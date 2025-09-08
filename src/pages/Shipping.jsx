@@ -267,7 +267,7 @@ export default function ShippingPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: user.email,
-          amount: total * 100, // Paystack expects kobo
+          amount: total,
           address,
           cart: cartFromCheckout,
         }),
@@ -379,4 +379,5 @@ export default function ShippingPage() {
     </div>
   );
 }
+
 
