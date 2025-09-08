@@ -262,7 +262,7 @@ export default function ShippingPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/api/payment/initiate`, {
+      const res = await fetch(`${API_URL}/payment/initiate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -379,3 +379,4 @@ export default function ShippingPage() {
     </div>
   );
 }
+
