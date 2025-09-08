@@ -268,7 +268,7 @@ export default function ShippingPage() {
   const verifyPayment = async (reference) => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/paystack/verify/${reference}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/paystack/verify/${reference}`);
       const verifyData = await response.json();
 
       if (verifyData.status === 'success') {
@@ -327,7 +327,7 @@ export default function ShippingPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/paystack/initialize`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/paystack/initialize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -448,3 +448,4 @@ export default function ShippingPage() {
     </div>
   );
 }
+
