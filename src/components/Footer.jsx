@@ -53,9 +53,8 @@ export default function Footer() {
           <a href="https://x.com/sntfrncs?s=21"><BsTwitterX /></a>
           <a href="https://www.tiktok.com/@sntfrncsww?_t=ZS-8zVQEfyN0uG&_r=1"><FaTiktok /></a>
         </div>
-        <p>© {new Date().getFullYear()} Snt.Francis Worldwide. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Snt.Frncs Worldwide. All rights reserved.</p>
       </div>
     </footer>
   );
 }
-
