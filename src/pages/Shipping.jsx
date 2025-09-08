@@ -236,6 +236,8 @@ export default function ShippingPage() {
   });
   const [errors, setErrors] = useState({});
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const validateForm = () => {
     const newErrors = {};
     if (!address.fullName) newErrors.fullName = "Full Name is required";
@@ -260,7 +262,7 @@ export default function ShippingPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/payment/initiate", {
+      const res = await fetch(`${API_URL}/api/payment/initiate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -274,8 +276,7 @@ export default function ShippingPage() {
       const data = await res.json();
 
       if (data.status && data.data.authorization_url) {
-        // Redirect user to Paystack checkout
-        window.location.href = data.data.authorization_url;
+        window.location.href = data.data.authorization_url; // redirect to Paystack
       } else {
         alert("Payment initialization failed.");
       }
@@ -297,7 +298,7 @@ export default function ShippingPage() {
           }}
           className="address-form"
         >
-          {/* Full Name */}
+          {/* Inputs */}
           <div>
             <label className="first-label">Full Name</label>
             <input
@@ -310,7 +311,6 @@ export default function ShippingPage() {
             {errors.fullName && <p className="error">{errors.fullName}</p>}
           </div>
 
-          {/* Phone */}
           <div>
             <label>Phone Number</label>
             <input
@@ -323,7 +323,6 @@ export default function ShippingPage() {
             {errors.phone && <p className="error">{errors.phone}</p>}
           </div>
 
-          {/* Street */}
           <div>
             <label>Street Address</label>
             <input
@@ -336,7 +335,6 @@ export default function ShippingPage() {
             {errors.street && <p className="error">{errors.street}</p>}
           </div>
 
-          {/* City */}
           <div>
             <label>City</label>
             <input
@@ -349,7 +347,6 @@ export default function ShippingPage() {
             {errors.city && <p className="error">{errors.city}</p>}
           </div>
 
-          {/* State */}
           <div>
             <label>State</label>
             <input
@@ -362,7 +359,6 @@ export default function ShippingPage() {
             {errors.state && <p className="error">{errors.state}</p>}
           </div>
 
-          {/* Postal Code */}
           <div>
             <label>Postal Code</label>
             <input
@@ -383,4 +379,3 @@ export default function ShippingPage() {
     </div>
   );
 }
-
