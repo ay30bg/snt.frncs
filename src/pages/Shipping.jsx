@@ -211,11 +211,14 @@
 //   );
 // }
 
-import React, { useState } from "react";
+
+// src/pages/Shipping.jsx
+import React, { useState, useEffect } from "react";
 import { useCart } from "../App";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../App";
 import "../styles/checkout.css";
+import axios from "axios";
 
 export default function ShippingPage() {
   const { clearCart } = useCart();
@@ -223,6 +226,7 @@ export default function ShippingPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Extract cart and total from location state, default to empty array and 0
   const { cart: cartFromCheckout, total } = location.state || { cart: [], total: 0 };
 
   const [loading, setLoading] = useState(false);
@@ -235,9 +239,17 @@ export default function ShippingPage() {
     postalCode: "",
   });
   const [errors, setErrors] = useState({});
+  const [checkoutData, setCheckoutData] = useState({ cart: cartFromCheckout, total });
 
-  const API_URL = process.env.REACT_APP_API_URL;
+  // Load pending checkout from localStorage if it exists
+  useEffect(() => {
+    const pending = JSON.parse(localStorage.getItem("pendingCheckout"));
+    if (pending) {
+      setCheckoutData(pending);
+    }
+  }, []);
 
+  // Form validation
   const validateForm = () => {
     const newErrors = {};
     if (!address.fullName) newErrors.fullName = "Full Name is required";
@@ -250,40 +262,108 @@ export default function ShippingPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handlePlaceOrder = async () => {
+  // Handle form submission and payment initiation
+  const handlePlaceOrder = async (e) => {
+    e.preventDefault();
+
     if (!user) {
-      alert("You must be logged in to continue.");
+      // If not logged in, save checkout state and redirect to auth
+      localStorage.setItem(
+        "pendingCheckout",
+        JSON.stringify({ cart: cartFromCheckout, total })
+      );
       navigate("/auth", { state: { from: "/shipping" } });
       return;
     }
 
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      setLoading(false);
+      return;
+    }
 
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/payment/initiate`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: user.email,
-          amount: total,
+      // Initialize payment via backend using REACT_APP_API_URL
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/payment/initialize`,
+        {
+          email: user.email || "customer@example.com",
+          amount: checkoutData.total,
+          cart: checkoutData.cart,
           address,
-          cart: cartFromCheckout,
-        }),
-      });
+          userId: user._id || null,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
-      const data = await res.json();
+      const { authorization_url, reference } = response.data;
 
-      if (data.status && data.data.authorization_url) {
-        window.location.href = data.data.authorization_url; // redirect to Paystack
-      } else {
-        alert("Payment initialization failed.");
-      }
-    } catch (err) {
-      alert("Error initializing payment.");
-    } finally {
+      // Dynamically load Paystack inline script
+      const script = document.createElement("script");
+      script.src = "https://js.paystack.co/v1/inline.js";
+      script.async = true;
+      script.onload = () => {
+        const paystack = new window.PaystackPop();
+        paystack.newTransaction({
+          key: "pk_test_8fa5dfa8fbd19d1ef103d0a0a000c4456f3bc1bf", // Replace with your Paystack public key
+          email: user.email || "customer@example.com",
+          amount: checkoutData.total * 100, // Convert to kobo
+          currency: "NGN",
+          reference,
+          metadata: {
+            fullName: address.fullName,
+            phone: address.phone,
+            orderId: reference.split('_')[1], // Extract orderId from reference
+          },
+          onSuccess: async (transaction) => {
+            try {
+              // Verify payment via backend using REACT_APP_API_URL
+              const verifyResponse = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/payment/verify/${transaction.reference}`
+              );
+              if (verifyResponse.data.status === "success") {
+                clearCart();
+                localStorage.removeItem("pendingCheckout");
+
+                const order = {
+                  address,
+                  cart: checkoutData.cart,
+                  total: checkoutData.total,
+                  paymentReference: transaction.reference,
+                };
+
+                localStorage.setItem("lastOrder", JSON.stringify(order));
+                navigate("/confirmation", { state: order });
+              } else {
+                alert("Payment verification failed. Please contact support.");
+              }
+            } catch (error) {
+              alert(`Payment verification failed: ${error.message}`);
+            } finally {
+              setLoading(false);
+            }
+          },
+          onCancel: () => {
+            setLoading(false);
+            alert("Payment was cancelled. Please try again.");
+          },
+          onError: (error) => {
+            setLoading(false);
+            alert(`Payment failed: ${error.message}`);
+          },
+        });
+      };
+      script.onerror = () => {
+        setLoading(false);
+        alert("Failed to load Paystack script. Please try again.");
+      };
+      document.body.appendChild(script);
+    } catch (error) {
       setLoading(false);
+      alert(`Payment initialization failed: ${error.response?.data?.error || error.message}`);
     }
   };
 
@@ -291,14 +371,7 @@ export default function ShippingPage() {
     <div className="order-summary-container">
       <div className="order-summary">
         <h2>Shipping Address</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handlePlaceOrder();
-          }}
-          className="address-form"
-        >
-          {/* Inputs */}
+        <form onSubmit={handlePlaceOrder} className="address-form">
           <div>
             <label className="first-label">Full Name</label>
             <input
@@ -379,5 +452,3 @@ export default function ShippingPage() {
     </div>
   );
 }
-
-
