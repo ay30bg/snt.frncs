@@ -133,18 +133,35 @@
 
 /* --- Social Buttons --- */
 .social-login {
+  margin-top: 1.5rem;
+  display: flex;
+   width: 100%;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.social-login button {
+  padding: 0.9rem;
+  border: 1px solid #cbd5e1;
+  background: #f9fafb;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.google-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%; /* Ensure it takes full width of the parent */
-  margin: 10px 0; /* Add spacing */
+  gap: 0.6rem;
+  font-weight: 600;
+  color: #111;
+  border-radius: 0;
+  background: #fff;
 }
 
-.social-login > div {
-  width: 100% !important; /* Override any default width */
-  min-height: 40px; /* Ensure minimum height */
-}
-
+.google-btn:hover {
+  background: #f1f5f9;
 /* Remember Me + Forgot Password Row */
 .remember-forgot {
   display: flex;
@@ -183,5 +200,6 @@
 .forgot-link:hover {
   text-decoration: underline;
 }
+
 
 
