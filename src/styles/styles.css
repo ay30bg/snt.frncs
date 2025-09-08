@@ -903,6 +903,7 @@ button:focus .spinner {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border: 1px solid #000;
+    margin-top: 70px;
 }
 
 /* Close button */
@@ -1299,4 +1300,3 @@ button:focus .spinner {
         opacity: 1;
     }
 }
-
