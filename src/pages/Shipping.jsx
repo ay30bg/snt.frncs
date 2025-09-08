@@ -211,7 +211,6 @@
 //   );
 // }
 
-
 // src/pages/Shipping.jsx
 import React, { useState, useEffect } from "react";
 import { useCart } from "../App";
@@ -281,19 +280,31 @@ export default function ShippingPage() {
       return;
     }
 
+    // Validate checkout data before sending
+    if (!checkoutData.cart || checkoutData.cart.length === 0 || !checkoutData.total) {
+      setLoading(false);
+      alert("Cart is empty or total is invalid. Please add items to your cart.");
+      navigate("/cart"); // Redirect to cart page
+      return;
+    }
+
+    // Log the payload for debugging
+    const payload = {
+      email: user.email || "customer@example.com",
+      amount: checkoutData.total,
+      cart: checkoutData.cart,
+      address,
+      userId: user._id || null,
+    };
+    console.log("Sending payload to backend:", payload);
+
     setLoading(true);
 
     try {
       // Initialize payment via backend using REACT_APP_API_URL
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/payment/initialize`,
-        {
-          email: user.email || "customer@example.com",
-          amount: checkoutData.total,
-          cart: checkoutData.cart,
-          address,
-          userId: user._id || null,
-        },
+        `${process.env.REACT_APP_API_URL}/api/payment/initialize`,
+        payload,
         {
           headers: { "Content-Type": "application/json" },
         }
@@ -322,7 +333,7 @@ export default function ShippingPage() {
             try {
               // Verify payment via backend using REACT_APP_API_URL
               const verifyResponse = await axios.get(
-                `${process.env.REACT_APP_API_URL}/payment/verify/${transaction.reference}`
+                `${process.env.REACT_APP_API_URL}/api/payment/verify/${transaction.reference}`
               );
               if (verifyResponse.data.status === "success") {
                 clearCart();
@@ -363,6 +374,7 @@ export default function ShippingPage() {
       document.body.appendChild(script);
     } catch (error) {
       setLoading(false);
+      console.error("Payment initialization error:", error.response?.data || error.message);
       alert(`Payment initialization failed: ${error.response?.data?.error || error.message}`);
     }
   };
@@ -452,4 +464,3 @@ export default function ShippingPage() {
     </div>
   );
 }
-
