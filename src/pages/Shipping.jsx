@@ -280,7 +280,7 @@ export default function ShippingPage() {
 
     try {
       // Initialize transaction via backend
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/initialize`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/payment/initialize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -316,7 +316,7 @@ export default function ShippingPage() {
           try {
             // Verify transaction via backend
             const verifyResponse = await fetch(
-              `${process.env.REACT_APP_API_URL}/api/payment/verify/${transaction.reference}`,
+              `${process.env.REACT_APP_API_URL}/payment/verify/${transaction.reference}`,
               {
                 headers: {
                   "Authorization": `Bearer ${user.token}`,
@@ -471,3 +471,4 @@ export default function ShippingPage() {
     </div>
   );
 }
+
