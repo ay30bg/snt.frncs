@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+dimport React, { useState } from "react";
 import "../styles/authPage.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -146,7 +146,7 @@ export default function AuthPage() {
               onError={() => setError("Google login failed. Please try again.")}
               buttonText="Continue with Google"
               size="large"
-              width="310"
+              width="325"
             />
           </div>
 
@@ -160,6 +160,7 @@ export default function AuthPage() {
     </GoogleOAuthProvider>
   );
 }
+
 
 
 
