@@ -281,7 +281,7 @@ export default function ShippingPage() {
       onSuccess: async (transaction) => {
         try {
           // Verify payment with backend using REACT_APP_API_URL
-          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/paystack/verify/${transaction.reference}`, {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/paystack/verify/${transaction.reference}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -432,3 +432,4 @@ export default function ShippingPage() {
     </div>
   );
 }
+
