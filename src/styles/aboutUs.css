@@ -1,0 +1,162 @@
+/* Import Montserrat from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+.about {
+  background: #fff;
+  color: black;
+  padding: 4rem 2rem;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.6;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  color: black;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.about-intro {
+  font-size: 1.2rem;
+  text-align: left;
+  margin-bottom: 3rem;
+  color: #666;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.about-section {
+  margin-bottom: 2rem;
+}
+
+.about-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: #333;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.about-section p {
+  color: #666;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.about-cta {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem;
+  background: #000;
+}
+
+.about-closing {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #fff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.shop-btn {
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  background: #000;
+  color: #fff;
+  border: 2px solid #fff;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.shop-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ===============================
+   Responsive Design
+   =============================== */
+
+/* Tablets (768px and up) */
+@media (max-width: 1024px) {
+  .about {
+    padding: 3rem 1.5rem;
+  }
+
+  .about-title {
+    font-size: 2rem;
+    text-align: left;
+  }
+
+  .about-intro {
+    text-align: left;
+    font-size: 1.1rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.3rem;
+    text-align: left;
+  }
+
+  .about-section p {
+    text-align: left;
+  }
+}
+
+/* Mobile (up to 767px) */
+@media (max-width: 767px) {
+  .about {
+    padding: 2rem 1rem;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    text-align: left;
+  }
+
+  .about-intro {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  .about-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .about-section p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .about-cta {
+    padding: 1.5rem 1rem;
+  }
+
+  .about-closing {
+    font-size: 1.1rem;
+  }
+
+  .shop-btn {
+    width: 100%; 
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
