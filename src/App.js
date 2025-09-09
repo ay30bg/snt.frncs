@@ -12,6 +12,7 @@ import Wishlist from "./pages/Wishlist";
 import ShippingPage from "./pages/Shipping";
 import ConfirmationPage from "./pages/Confirmation";
 import SearchPage from "./pages/Search";
+import AboutUs from "./pages/AboutUs";
 import "./styles/styles.css";
 
 // ---- Cart Context ----
@@ -137,6 +138,7 @@ export default function App() {
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/shipping" element={<ShippingPage />} />
                 <Route path="/confirmation" element={<ConfirmationPage />} />
+                   <Route path="/about" element={<AboutUs />} />
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/wishlist" element={<Wishlist addToCart={addToCart} />} /> 
