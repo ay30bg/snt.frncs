@@ -42,7 +42,7 @@ export default function About() {
           <p className="about-closing">
             𝗦𝗡𝗧 𝗙𝗥𝗡𝗖𝗦. Wear the love. Live the legacy.
           </p>
-          <button className="shop-btn">Shop Now</button>
+          <button className="shop-btn"><a href="/">Shop Now</a></button>
         </div>
       </div>
     </section>
