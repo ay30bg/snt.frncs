@@ -1,6 +1,6 @@
 import React from "react";
-import { FaInstagram, FaFacebookF, FaTiktok } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
+import { FaInstagram, FaTiktok } from "react-icons/fa";
+import { BsTwitterX, BsSnapchat } from "react-icons/bs";
 
 export default function Footer() {
   return (
@@ -49,7 +49,7 @@ export default function Footer() {
       <div className="footer-bottom">
         <div className="social-icons">
           <a href="https://www.instagram.com/sntfrncs.ww?igsh=dHFwdHgzb3Fmem5y&utm_source=qr"><FaInstagram /></a>
-          <a href="https://facebook.com"><FaFacebookF /></a>
+          <a href="https://snapchat.com/t/e55xAlB3"><BsSnapchat /></a>
           <a href="https://x.com/sntfrncs?s=21"><BsTwitterX /></a>
           <a href="https://www.tiktok.com/@sntfrncsww?_t=ZS-8zVQEfyN0uG&_r=1"><FaTiktok /></a>
         </div>
