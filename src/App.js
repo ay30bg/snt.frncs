@@ -14,6 +14,7 @@ import ConfirmationPage from "./pages/Confirmation";
 import SearchPage from "./pages/Search";
 import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
+import Faq from "./pages/Faq";
 import "./styles/styles.css";
 
 // ---- Cart Context ----
@@ -141,6 +142,7 @@ export default function App() {
                 <Route path="/confirmation" element={<ConfirmationPage />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/contact" element={<Contact />} />
+                  <Route path="/faq" element={<Faq />} />
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/wishlist" element={<Wishlist addToCart={addToCart} />} /> 
