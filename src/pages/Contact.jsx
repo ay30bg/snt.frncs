@@ -1,5 +1,5 @@
 import React from "react";
-import { BsTwitterX, BsGeoAlt, BsTelephone, BsEnvelope } from "react-icons/bs";
+import { BsTwitterX, BsGeoAlt, BsTelephone, BsEnvelope, BsSnapchat } from "react-icons/bs";
 import { FaInstagram, FaTiktok } from "react-icons/fa";
 import "../styles/contact.css";
 
@@ -43,11 +43,12 @@ export default function Contact() {
                         <p><BsTelephone className="contact-icon" /> +2348001234567</p>
 
                         <h3>Address</h3>
-                        <p><BsGeoAlt className="contact-icon" /> Ilaro, Yewa North, Ogun State</p>
+                        <p><BsGeoAlt className="contact-icon" /> Ikotun, Alimosho LGA, Lagos State</p>
 
                         <h3>Follow Us</h3>
                         <p>
                             <a href="https://www.instagram.com/sntfrncs.ww?igsh=dHFwdHgzb3Fmem5y&utm_source=qr" className="icon-link"><FaInstagram className="contact-social-icon" /></a>
+                            <a href="https://snapchat.com/t/e55xAlB3" className="icon-link"><BsSnapchat className="contact-social-icon" /></a>
                             <a href="https://x.com/sntfrncs?s=21" className="icon-link"><BsTwitterX className="contact-social-icon" /></a>
                             <a href="https://www.tiktok.com/@sntfrncsww?_t=ZS-8zVQEfyN0uG&_r=1" className="icon-link"><FaTiktok className="contact-social-icon" /></a>
                         </p>
@@ -59,7 +60,7 @@ export default function Contact() {
                     <h3>Our Location</h3>
                     <iframe
                         title="Our Location"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCOMQkM6SVXsI1bCntxRH684mqapDFbXRw&q=Ilaro,Yewa+North,Ogun+State,Nigeria"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCOMQkM6SVXsI1bCntxRH684mqapDFbXRw&q=Ikotun+Alimosho,Lagos,Nigeria"
                         width="100%"
                         height="300"
                         style={{ border: 0 }}
