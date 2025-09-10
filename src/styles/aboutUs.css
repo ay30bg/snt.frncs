@@ -70,13 +70,14 @@
 }
 
 .shop-btn {
-  margin-top: 1rem;
-  padding: 0.8rem 2rem;
+  margin-top: 2rem;
+  padding: 0.5rem 2rem;
   background: #000;
   color: #fff;
   border: 2px solid #fff;
   font-size: 1rem;
   text-transform: uppercase;
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 600;
@@ -86,6 +87,11 @@
 .shop-btn:hover {
   background: #fff;
   color: #000;
+}
+
+.shop-btn-link {
+  color: #fff;
+  text-decoration: none;
 }
 
 /* ===============================
