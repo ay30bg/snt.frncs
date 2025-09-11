@@ -1,5 +1,5 @@
 import React from "react";
-import { FaTimes, FaMinus } from "react-icons/fa";
+import { FiX, FiMinus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useCart } from "../App";
 
@@ -16,7 +16,7 @@ export default function CartDrawer({ open, setOpen }) {
         <div className="cart-header">
           <h2>Your Cart</h2>
           <button onClick={() => setOpen(false)}>
-            <FaTimes />
+            <FiX />
           </button>
         </div>
 
@@ -42,7 +42,7 @@ export default function CartDrawer({ open, setOpen }) {
                     />
                   </div>
                   <button onClick={() => removeFromCart(item.cartId)}>
-                    <FaMinus />
+                    <FiMinus />
                   </button>
                 </li>
               ))}
