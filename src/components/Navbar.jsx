@@ -1,13 +1,274 @@
+// import React, { useState } from "react";
+// import {
+//   FaShoppingCart,
+//   FaBars,
+//   FaUser,
+//   FaSearch,
+//   FaTimes,
+//   FaHeart,
+//   FaSignOutAlt,
+// } from "react-icons/fa";
+// import { useNavigate } from "react-router-dom";
+// import logo from "../assets/snt-frncs-new-logo.png";
+
+// function Navbar({ cartCount, wishlistCount, onCartToggle }) {
+//   const [showSearch, setShowSearch] = useState(false);
+//   const [closing, setClosing] = useState(false);
+//   const [searchQuery, setSearchQuery] = useState("");
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+//   const navigate = useNavigate();
+
+//   const isLoggedIn = Boolean(localStorage.getItem("user"));
+
+//   const handleProfileClick = () => navigate("/auth");
+//   const handleLogoClick = () => navigate("/");
+//   const handleWishlistClick = () => navigate("/wishlist");
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("user");
+//     window.location.reload();
+//   };
+
+//   const handleSearchSubmit = (e) => {
+//     e.preventDefault();
+//     if (searchQuery.trim()) {
+//       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+//       setShowSearch(false);
+//       setSearchQuery("");
+//     }
+//   };
+
+//   const handleCloseSearch = () => {
+//     setClosing(true);
+//     setTimeout(() => {
+//       setShowSearch(false);
+//       setClosing(false);
+//     }, 300);
+//   };
+
+//   return (
+//     <>
+//       <nav className="navbar">
+//         {/* Left: Logo */}
+//         <div className="logo" onClick={handleLogoClick}>
+//           <img src={logo} alt="SNT.FRNCS Logo" className="logo-img" />
+//         </div>
+
+//         {/* Center: Search (desktop) */}
+//         <form className="search-bar" onSubmit={handleSearchSubmit}>
+//           <input
+//             type="text"
+//             placeholder="Search products..."
+//             value={searchQuery}
+//             onChange={(e) => setSearchQuery(e.target.value)}
+//           />
+//           <button type="submit">
+//             <FaSearch />
+//           </button>
+//         </form>
+
+//         {/* Right: Icons */}
+//         <div className="nav-actions">
+//           {/* Mobile: Cart + Bars */}
+//           <div className="mobile-only">
+//             {/* Mobile Cart */}
+//             <button className="cart-btn mobile-cart-btn" onClick={onCartToggle}>
+//               <FaShoppingCart className="nav-icons mobile-cart" />
+//               {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+//             </button>
+
+//             {/* Mobile Sidebar Toggle */}
+//             <button
+//               className="icon-btn"
+//               onClick={() => setSidebarOpen(true)}
+//             >
+//               <FaBars className="nav-icons sidebar-bars" />
+//             </button>
+//           </div>
+
+//           {/* Wishlist (desktop only) */}
+//           <button
+//             className="wishlist-btn desktop-only"
+//             onClick={handleWishlistClick}
+//           >
+//             <FaHeart className="nav-icons" />
+//             {wishlistCount > 0 && (
+//               <span className="wishlist-count">{wishlistCount}</span>
+//             )}
+//           </button>
+
+//           {/* Cart (desktop only) */}
+//           <button className="cart-btn desktop-only" onClick={onCartToggle}>
+//             <FaShoppingCart className="nav-icons" />
+//             {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+//           </button>
+
+//           {/* Profile / Logout */}
+//           {!isLoggedIn ? (
+//             <button className="icon-btn desktop-only" onClick={handleProfileClick}>
+//               <FaUser className="nav-icons" />
+//             </button>
+//           ) : (
+//             <button className="icon-btn desktop-only" onClick={handleLogout}>
+//               <FaSignOutAlt className="nav-icons" />
+//             </button>
+//           )}
+//         </div>
+//       </nav>
+
+//       {/* Sidebar (Mobile) */}
+//       {sidebarOpen && (
+//         <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}>
+//           <div
+//             className="sidebar"
+//             onClick={(e) => e.stopPropagation()}
+//           >
+//             <button className="close-btn" onClick={() => setSidebarOpen(false)}>
+//               <FaTimes />
+//             </button>
+
+//             {/* Profile Section */}
+//             <div className="sidebar-profile">
+//               {!isLoggedIn ? (
+//                 <button
+//                   onClick={() => {
+//                     handleProfileClick();
+//                     setSidebarOpen(false);
+//                   }}
+//                   className="profile-btn"
+//                 >
+//                   <FaUser className="nav-icons" />
+//                   <span>Sign in / Join</span>
+//                 </button>
+//               ) : (
+//                 <div className="profile-info">
+//                   <FaUser className="nav-icons" />
+//                   <span>Welcome back!</span>
+//                 </div>
+//               )}
+//             </div>
+
+//             <hr className="sidebar-divider" />
+
+//             {/* Shop Section */}
+//             <div className="sidebar-section">
+//               <h4>Shop</h4>
+//               <ul>
+//                 <li
+//                   onClick={() => {
+//                     handleWishlistClick();
+//                     setSidebarOpen(false);
+//                   }}
+//                 >
+//                   <FaHeart className="nav-icons" />
+//                   <span>Wishlist</span>
+//                   {wishlistCount > 0 && (
+//                     <span className="count-badge">{wishlistCount}</span>
+//                   )}
+//                 </li>
+//                 <li
+//                   onClick={() => {
+//                     onCartToggle();
+//                     setSidebarOpen(false);
+//                   }}
+//                 >
+//                   <FaShoppingCart className="nav-icons" />
+//                   <span>Cart</span>
+//                   {cartCount > 0 && (
+//                     <span className="count-badge">{cartCount}</span>
+//                   )}
+//                 </li>
+//               </ul>
+//             </div>
+
+//             <hr className="sidebar-divider" />
+
+//             {/* Account Section */}
+//             <div className="sidebar-section">
+//               <h4>Account</h4>
+//               <ul>
+//                 {!isLoggedIn ? (
+//                   <li
+//                     onClick={() => {
+//                       handleProfileClick();
+//                       setSidebarOpen(false);
+//                     }}
+//                   >
+//                     <FaUser className="nav-icons" />
+//                     <span>Login</span>
+//                   </li>
+//                 ) : (
+//                   <li
+//                     onClick={() => {
+//                       handleLogout();
+//                       setSidebarOpen(false);
+//                     }}
+//                   >
+//                     <FaSignOutAlt className="nav-icons" />
+//                     <span>Logout</span>
+//                   </li>
+//                 )}
+//               </ul>
+//             </div>
+
+//             <hr className="sidebar-divider" />
+
+//             {/* Help Section */}
+//             <div className="sidebar-section">
+//               <h4>Help</h4>
+//               <ul>
+//                 <li>
+//                   <span>Contact Us</span>
+//                 </li>
+//                 <li>
+//                   <span>FAQs</span>
+//                 </li>
+//                 <li>
+//                   <span>Returns</span>
+//                 </li>
+//               </ul>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Fullscreen Search (Mobile only) */}
+//       {showSearch && (
+//         <div className={`search-overlay ${closing ? "closing" : "opening"}`}>
+//           <form className="search-box" onSubmit={handleSearchSubmit}>
+//             <input
+//               type="text"
+//               placeholder="Search products..."
+//               autoFocus
+//               value={searchQuery}
+//               onChange={(e) => setSearchQuery(e.target.value)}
+//             />
+//             <button
+//               type="button"
+//               className="close-btn"
+//               onClick={handleCloseSearch}
+//             >
+//               <FaTimes />
+//             </button>
+//           </form>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+// export default Navbar;
+
 import React, { useState } from "react";
 import {
-  FaShoppingCart,
-  FaBars,
-  FaUser,
-  FaSearch,
-  FaTimes,
-  FaHeart,
-  FaSignOutAlt,
-} from "react-icons/fa";
+  FiShoppingCart,
+  FiMenu,
+  FiUser,
+  FiSearch,
+  FiX,
+  FiHeart,
+  FiLogOut,
+} from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/snt-frncs-new-logo.png";
 
@@ -63,7 +324,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <button type="submit">
-            <FaSearch />
+            <FiSearch />
           </button>
         </form>
 
@@ -73,7 +334,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
           <div className="mobile-only">
             {/* Mobile Cart */}
             <button className="cart-btn mobile-cart-btn" onClick={onCartToggle}>
-              <FaShoppingCart className="nav-icons mobile-cart" />
+              <FiShoppingCart className="nav-icons mobile-cart" />
               {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </button>
 
@@ -82,7 +343,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
               className="icon-btn"
               onClick={() => setSidebarOpen(true)}
             >
-              <FaBars className="nav-icons sidebar-bars" />
+              <FiMenu className="nav-icons sidebar-bars" />
             </button>
           </div>
 
@@ -91,7 +352,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
             className="wishlist-btn desktop-only"
             onClick={handleWishlistClick}
           >
-            <FaHeart className="nav-icons" />
+            <FiHeart className="nav-icons" />
             {wishlistCount > 0 && (
               <span className="wishlist-count">{wishlistCount}</span>
             )}
@@ -99,18 +360,18 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
 
           {/* Cart (desktop only) */}
           <button className="cart-btn desktop-only" onClick={onCartToggle}>
-            <FaShoppingCart className="nav-icons" />
+            <FiShoppingCart className="nav-icons" />
             {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
           </button>
 
           {/* Profile / Logout */}
           {!isLoggedIn ? (
             <button className="icon-btn desktop-only" onClick={handleProfileClick}>
-              <FaUser className="nav-icons" />
+              <FiUser className="nav-icons" />
             </button>
           ) : (
             <button className="icon-btn desktop-only" onClick={handleLogout}>
-              <FaSignOutAlt className="nav-icons" />
+              <FiLogOut className="nav-icons" />
             </button>
           )}
         </div>
@@ -124,7 +385,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
             onClick={(e) => e.stopPropagation()}
           >
             <button className="close-btn" onClick={() => setSidebarOpen(false)}>
-              <FaTimes />
+              <FiX />
             </button>
 
             {/* Profile Section */}
@@ -137,12 +398,12 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
                   }}
                   className="profile-btn"
                 >
-                  <FaUser className="nav-icons" />
+                  <FiUser className="nav-icons" />
                   <span>Sign in / Join</span>
                 </button>
               ) : (
                 <div className="profile-info">
-                  <FaUser className="nav-icons" />
+                  <FiUser className="nav-icons" />
                   <span>Welcome back!</span>
                 </div>
               )}
@@ -160,7 +421,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
                     setSidebarOpen(false);
                   }}
                 >
-                  <FaHeart className="nav-icons" />
+                  <FiHeart className="nav-icons" />
                   <span>Wishlist</span>
                   {wishlistCount > 0 && (
                     <span className="count-badge">{wishlistCount}</span>
@@ -172,7 +433,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
                     setSidebarOpen(false);
                   }}
                 >
-                  <FaShoppingCart className="nav-icons" />
+                  <FiShoppingCart className="nav-icons" />
                   <span>Cart</span>
                   {cartCount > 0 && (
                     <span className="count-badge">{cartCount}</span>
@@ -194,7 +455,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
                       setSidebarOpen(false);
                     }}
                   >
-                    <FaUser className="nav-icons" />
+                    <FiUser className="nav-icons" />
                     <span>Login</span>
                   </li>
                 ) : (
@@ -204,7 +465,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
                       setSidebarOpen(false);
                     }}
                   >
-                    <FaSignOutAlt className="nav-icons" />
+                    <FiLogOut className="nav-icons" />
                     <span>Logout</span>
                   </li>
                 )}
@@ -248,7 +509,7 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
               className="close-btn"
               onClick={handleCloseSearch}
             >
-              <FaTimes />
+              <FiX />
             </button>
           </form>
         </div>
@@ -258,3 +519,4 @@ function Navbar({ cartCount, wishlistCount, onCartToggle }) {
 }
 
 export default Navbar;
+
