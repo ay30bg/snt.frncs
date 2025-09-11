@@ -1,9 +1,9 @@
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
-import { FaShippingFast, FaShoppingCart, FaDownload } from "react-icons/fa";
+import { FiTruck, FiShoppingCart, FiDownload } from "react-icons/fi";
 import jsPDF from "jspdf";
 import "../styles/checkout.css";
-import logo from "../assets/snt.francis_logo.png";
+import logo from "../assets/snt-frncs-new-logo.png";
 
 export default function ConfirmationPage() {
   const location = useLocation();
@@ -77,7 +77,7 @@ export default function ConfirmationPage() {
 
         {/* Shipping Info */}
         <section className="confirmation-section">
-          <h3><FaShippingFast className="shipping-icon" /> Shipping To</h3>
+          <h3><FiTruck className="shipping-icon" /> Shipping To</h3>
           <p>{address.fullName}</p>
           <p>{address.street}, {address.city}, {address.state}</p>
           <p>{address.postalCode}</p>
@@ -87,7 +87,7 @@ export default function ConfirmationPage() {
 
         {/* Items Ordered */}
         <section className="confirmation-section">
-          <h3><FaShoppingCart className="cart-icon" /> Items Ordered</h3>
+          <h3><FiShoppingCart className="cart-icon" /> Items Ordered</h3>
           <div className="confirmation-items">
             {cart.map((item, idx) => (
               <div key={idx} className="confirmation-item">
@@ -114,7 +114,7 @@ export default function ConfirmationPage() {
         {/* Download Button */}
         <div className="download-receipt">
           <button onClick={handleDownloadReceipt} className="download-btn">
-            <FaDownload /> Download Receipt
+            <FiDownload /> Download Receipt
           </button>
         </div>
 
@@ -124,4 +124,3 @@ export default function ConfirmationPage() {
     </div>
   );
 }
-
