@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaPlus, FaTimes } from "react-icons/fa";
+import { FiPlus, FiX } from "react-icons/fi";
 import "../styles/faq.css";
 
 const faqs = [
@@ -60,7 +60,7 @@ export default function FAQ() {
               >
                 <span className="faq-question">{faq.question}</span>
                 <span className="faq-icon">
-                  {activeIndex === index ? <FaTimes /> : <FaPlus />}
+                  {activeIndex === index ? <FiX /> : <FiPlus />}
                 </span>
               </div>
               <div className="faq-answer">{faq.answer}</div>
