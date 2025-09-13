@@ -42,10 +42,10 @@ export default function Contact() {
           {/* Contact Info */}
           <div className="contact-info">
             <h3>Email</h3>
-            <p><FiMail className="contact-icon" /> support@sntfrncs.com</p>
+            <p><FiMail className="contact-icon" /> sntfrncsworldwide@gmail.com</p>
 
             <h3>Phone</h3>
-            <p><FiPhone className="contact-icon" /> +2348001234567</p>
+            <p><FiPhone className="contact-icon" /> +2348069944146</p>
 
             <h3>Address</h3>
             <p><FiMapPin className="contact-icon" /> Ikotun, Alimosho LGA, Lagos State</p>
