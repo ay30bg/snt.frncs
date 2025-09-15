@@ -16,7 +16,7 @@ const products = [
     category: "T-Shirts",
     description: "Oversized white tee with bold streetwear print.",
     inStock: 6,
-    sizes: ["S", "M", "L", "XL"],
+    sizes: ["M", "L", "XL"],
     oldPrice: 45000,
   },
   {
@@ -27,7 +27,7 @@ const products = [
     category: "T-Shirts",
     description: "Oversized black tee with bold streetwear print.",
     inStock: 6,
-    sizes: ["L", "XL"],
+    sizes: ["M", "L", "XL"],
     // discount: 20,
     // discountAmount: 5000,
     oldPrice: 45000,
@@ -42,7 +42,7 @@ const products = [
     inStock: 6,
     // discount: 10, 
     // discountAmount: 2.50
-    sizes: ["L", "XL"],
+    sizes: ["M", "L", "XL"],
     oldPrice: 45000,
   },
   {
@@ -57,3 +57,4 @@ const products = [
 ];
 
 export default products;
+
