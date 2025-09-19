@@ -48,7 +48,7 @@ const products = [
   {
     id: 4,
     name: "URBAN FRIAR BLACK CAP",
-    price: 12000,
+    price: 18000,
     image: blackCap,
     category: "Accessories",
     description: "Retro-inspired cap with a classic 90s vibe.",
@@ -57,6 +57,7 @@ const products = [
 ];
 
 export default products;
+
 
 
 
