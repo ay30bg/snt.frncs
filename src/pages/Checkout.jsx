@@ -42,7 +42,7 @@ export default function CheckoutPage() {
 
         <div className="summary-totals">
           <p>Subtotal <span>₦{subtotal.toLocaleString()}</span></p>
-          <p>Shipping <span>₦{shipping.toLocaleString()}</span></p>
+          <p>Shipping + Security Fee <span>₦{shipping.toLocaleString()}</span></p>
           <p className="summary-total">Total <span>₦{total.toLocaleString()}</span></p>
         </div>
 
@@ -53,6 +53,7 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
 
 
 
