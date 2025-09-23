@@ -8,7 +8,7 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-  const shipping = cart.length > 0 ? 5000 : 0;
+  const shipping = cart.length > 0 ? 10000 : 0;
   const total = subtotal + shipping;
 
   const handleContinueToShipping = () => {
@@ -53,5 +53,6 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
 
 
