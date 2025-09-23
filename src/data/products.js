@@ -15,7 +15,7 @@ const products = [
     images: [whiteTee, whiteTeeBack], 
     category: "T-Shirts",
     description: "Oversized white tee with bold streetwear print.",
-    inStock: 0,
+    inStock: 10,
     sizes: ["M", "L", "XL"],
     oldPrice: 45000,
   },
@@ -26,7 +26,7 @@ const products = [
     images: [blackTee, blackTeeBack], 
     category: "T-Shirts",
     description: "Oversized black tee with bold streetwear print.",
-    inStock: 0,
+    inStock: 10,
     sizes: ["M", "L", "XL"],
     // discount: 20,
     // discountAmount: 5000,
@@ -39,7 +39,7 @@ const products = [
     images: [greyTee, greyTeeBack], 
     category: "T-Shirts",
     description: "Oversized black tee with bold streetwear print.",
-    inStock: 0,
+    inStock: 10,
     // discount: 10, 
     // discountAmount: 2.50
     sizes: ["M", "L", "XL"],
@@ -52,11 +52,12 @@ const products = [
     image: blackCap,
     category: "Accessories",
     description: "Retro-inspired cap with a classic 90s vibe.",
-    inStock: 6,
+    inStock: 0,
   },
 ];
 
 export default products;
+
 
 
 
