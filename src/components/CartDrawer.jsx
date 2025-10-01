@@ -1,3 +1,4 @@
+// src/components/CartDrawer.jsx
 import React from "react";
 import { FiX, FiMinus } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -21,36 +22,57 @@ export default function CartDrawer({ open, setOpen }) {
         </div>
 
         {cart.length === 0 ? (
-          <p>Your cart is empty</p>
+          <p className="empty-cart">Your cart is empty</p>
         ) : (
           <>
             <ul className="cart-items">
               {cart.map((item) => (
-                <li key={item.cartId}>
-                  <img src={item.image ?? item.images?.[0]} alt={item.name} />
+                <li key={item.cartId} className="cart-item">
+                  {/* Item Image */}
+                  <img
+                    src={
+                      item.image ??
+                      item.selectedVariation?.image ??
+                      item.images?.[0]
+                    }
+                    alt={item.name}
+                  />
 
-                  <div>
+                  <div className="cart-item-info">
                     <h4>
-                      {item.name}{" "}
-                      {item.selectedSize ? `(Size: ${item.selectedSize})` : ""} × {item.qty}
+                      {item.name}
+                      {item.selectedVariation
+                        ? ` (Color: ${item.selectedVariation.color})`
+                        : ""}
+                      {item.selectedSize ? ` (Size: ${item.selectedSize})` : ""}
                     </h4>
+
                     <p>₦{item.price}</p>
-                    <input
-                      type="number"
-                      value={item.qty}
-                      onChange={(e) => updateQty(item.cartId, +e.target.value)}
-                    />
+
+                    <div className="cart-item-qty">
+                      <input
+                        type="number"
+                        min="1"
+                        value={item.qty}
+                        onChange={(e) =>
+                          updateQty(item.cartId, +e.target.value)
+                        }
+                      />
+                      <button onClick={() => removeFromCart(item.cartId)}>
+                        <FiMinus />
+                      </button>
+                    </div>
                   </div>
-                  <button onClick={() => removeFromCart(item.cartId)}>
-                    <FiMinus />
-                  </button>
                 </li>
               ))}
             </ul>
 
+            {/* Footer */}
             <div className="cart-footer">
-              <p>Total: ₦{total.toFixed(2)}</p>
-              <button onClick={clearCart}>Clear Cart</button>
+              <p className="cart-total">Total: ₦{total.toFixed(2)}</p>
+              <button className="clear-btn" onClick={clearCart}>
+                Clear Cart
+              </button>
               <Link
                 to="/checkout"
                 className="checkout-btn"
