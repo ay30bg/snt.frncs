@@ -1,3 +1,4 @@
+// src/pages/CheckoutPage.jsx
 import React from "react";
 import { useCart } from "../App";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +9,7 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-  const shipping = cart.length > 0 ? 10000 : 0;
+  const shipping = cart.length > 0 ? 5000 : 0;
   const total = subtotal + shipping;
 
   const handleContinueToShipping = () => {
@@ -24,12 +25,24 @@ export default function CheckoutPage() {
         <div className="summary-items">
           {cart.map((item) => (
             <div key={item.cartId || item.id} className="summary-item">
-              <img src={item.image ?? item.images?.[0]} alt={item.name} />
+              <img
+                src={
+                  item.image ??
+                  item.selectedVariation?.image ??
+                  item.images?.[0]
+                }
+                alt={item.name}
+              />
               <div>
                 <p className="item-name">
                   {item.name}{" "}
+                  {item.selectedVariation && (
+                    <span className="item-variation">
+                      (Color: {item.selectedVariation.color})
+                    </span>
+                  )}
                   {item.selectedSize && (
-                    <span className="item-size">(Size: {item.selectedSize})</span>
+                    <span className="item-size"> (Size: {item.selectedSize})</span>
                   )}
                 </p>
                 <p className="item-price">
@@ -41,9 +54,15 @@ export default function CheckoutPage() {
         </div>
 
         <div className="summary-totals">
-          <p>Subtotal <span>₦{subtotal.toLocaleString()}</span></p>
-          <p>Shipping + Security Fee <span>₦{shipping.toLocaleString()}</span></p>
-          <p className="summary-total">Total <span>₦{total.toLocaleString()}</span></p>
+          <p>
+            Subtotal <span>₦{subtotal.toLocaleString()}</span>
+          </p>
+          <p>
+            Shipping <span>₦{shipping.toLocaleString()}</span>
+          </p>
+          <p className="summary-total">
+            Total <span>₦{total.toLocaleString()}</span>
+          </p>
         </div>
 
         <button className="place-order-btn" onClick={handleContinueToShipping}>
@@ -53,7 +72,3 @@ export default function CheckoutPage() {
     </div>
   );
 }
-
-
-
-
