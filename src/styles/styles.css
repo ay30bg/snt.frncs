@@ -954,6 +954,65 @@ button:focus .spinner {
     transition: transform 0.2s ease;
 }
 
+/* === Variation Selector === */
+.variation-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.variation-selector p {
+  font-weight: 500;
+  font-size: 14px;
+  color: #222;
+}
+
+.variations {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Each swatch button */
+.variation-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition: transform 0.2s ease;
+}
+
+.variation-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Circular color swatch */
+.color-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-size: cover;
+  background-position: center;
+  transition: border 0.2s ease;
+}
+
+/* Active state */
+.variation-btn.active .color-swatch {
+  border: 3px solid #000;
+}
+
+/* Color name label */
+.variation-btn span {
+  font-size: 12px;
+  color: #444;
+}
+
 .zoom-container:hover .zoom-image {
     transform: scale(2);
     /* zoom level */
@@ -1300,3 +1359,4 @@ button:focus .spinner {
         opacity: 1;
     }
 }
+
