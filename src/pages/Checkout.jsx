@@ -9,7 +9,7 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-  const shipping = cart.length > 0 ? 5000 : 0;
+  const shipping = cart.length > 0 ? 7000 : 0;
   const total = subtotal + shipping;
 
   const handleContinueToShipping = () => {
@@ -58,7 +58,7 @@ export default function CheckoutPage() {
             Subtotal <span>₦{subtotal.toLocaleString()}</span>
           </p>
           <p>
-            Shipping <span>₦{shipping.toLocaleString()}</span>
+            Shipping + Security Fee <span>₦{shipping.toLocaleString()}</span>
           </p>
           <p className="summary-total">
             Total <span>₦{total.toLocaleString()}</span>
@@ -72,3 +72,4 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
