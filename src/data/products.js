@@ -63,7 +63,9 @@ const products = [
     ],
     category: "Accessories",
     description: "Retro-inspired cap with a classic 90s vibe.",
+    inStock: 6,
   },
 ];
 
 export default products;
+
