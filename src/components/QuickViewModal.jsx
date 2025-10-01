@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiX, FiHeart, FiAlertTriangle, } from "react-icons/fi";
+import { FiX, FiHeart, FiAlertTriangle } from "react-icons/fi";
 
 export default function QuickViewModal({
   product,
@@ -8,12 +8,23 @@ export default function QuickViewModal({
   addToWishlist,
   relatedProducts = []
 }) {
-  const [selectedImage, setSelectedImage] = useState(
-    product.images ? product.images[0] : product.image
+  const hasVariations = product.variations && product.variations.length > 0;
+
+  // Default image handling (variations or images)
+  const [selectedVariation, setSelectedVariation] = useState(
+    hasVariations ? product.variations[0] : null
   );
+  const [selectedImage, setSelectedImage] = useState(
+    hasVariations
+      ? product.variations[0].image
+      : product.images
+      ? product.images[0]
+      : product.image
+  );
+
   const [quantity, setQuantity] = useState(1);
   const [loadingId, setLoadingId] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null); // track selected size
+  const [selectedSize, setSelectedSize] = useState(null);
 
   // Close modal on ESC key
   useEffect(() => {
@@ -29,7 +40,10 @@ export default function QuickViewModal({
         {
           ...p,
           selectedSize,
-          cartId: `${p.id}-${selectedSize || "default"}`
+          selectedVariation,
+          cartId: `${p.id}-${selectedSize || "default"}-${
+            selectedVariation ? selectedVariation.color : "default"
+          }`
         },
         qty
       );
@@ -49,7 +63,6 @@ export default function QuickViewModal({
         </button>
 
         <div className="product-images">
-          {/* 🔍 Zoomable image */}
           <div
             className="zoom-container"
             onMouseMove={(e) => {
@@ -72,7 +85,7 @@ export default function QuickViewModal({
             />
           </div>
 
-          {product.images && (
+          {!hasVariations && product.images && (
             <div className="thumbnails">
               {product.images.map((img, idx) => (
                 <img
@@ -100,9 +113,49 @@ export default function QuickViewModal({
             )}
           </p>
 
-          <p>{product.inStock ? "In Stock" : "Out of Stock"}</p>
+          {/* Stock info */}
+          <p>
+            {hasVariations
+              ? `${selectedVariation.inStock} in stock`
+              : product.inStock
+              ? "In Stock"
+              : "Out of Stock"}
+          </p>
+
           {product.description && (
             <p className="product-info-description">{product.description}</p>
+          )}
+
+          {/* Variation Selector (ASOS style color swatches) */}
+          {hasVariations && (
+            <div className="variation-selector">
+              <p>Choose Color:</p>
+              <div className="variations">
+                {product.variations.map((variation, idx) => (
+                  <button
+                    key={idx}
+                    className={`variation-btn ${
+                      selectedVariation?.color === variation.color ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedVariation(variation);
+                      setSelectedImage(variation.image);
+                    }}
+                  >
+                    {/* Show swatch if available, else text */}
+                    <span
+                      className="color-swatch"
+                      style={{
+                        backgroundImage: `url(${variation.image})`,
+                        backgroundSize: "cover"
+                      }}
+                      title={variation.color}
+                    ></span>
+                    <span>{variation.color}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           )}
 
           {/* Size Selector */}
@@ -131,6 +184,7 @@ export default function QuickViewModal({
             </div>
           )}
 
+          {/* Quantity Selector */}
           <div className="quantity-selector">
             <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>
               -
@@ -139,12 +193,14 @@ export default function QuickViewModal({
             <button onClick={() => setQuantity(quantity + 1)}>+</button>
           </div>
 
+          {/* Action Buttons */}
           <div className="actions">
             <button
               onClick={() => handleAddToCart(product, quantity)}
               disabled={
-                !product.inStock ||
+                (!hasVariations && !product.inStock) ||
                 (product.sizes && !selectedSize) ||
+                (hasVariations && selectedVariation.inStock <= 0) ||
                 loadingId === product.id
               }
             >
@@ -171,7 +227,7 @@ export default function QuickViewModal({
                   : alert("Share not supported")
               }
             >
-               Share
+              Share
             </button>
           </div>
         </div>
