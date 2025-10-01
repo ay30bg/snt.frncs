@@ -6,6 +6,7 @@ import whiteTeeBack from '../assets/snt_22_back_white-removebg-preview.png';
 import greyTee from '../assets/Grey=front .png';
 import greyTeeBack from '../assets/grey-back.png';
 import blackCap from '../assets/black cap.jpg';
+import blackCapBack from '../assets/black cap2.jpg'
 // import whiteCap from '../assets/white cap.jpg';
 // import greyCap from '../assets/grey cap.jpg';
 
@@ -47,7 +48,7 @@ const products = [
     id: 4,
     name: "URBAN FRIAR CAP",
     price: 18000,
-    images: [blackCap], // Add more images if available
+    images: [blackCap, blackCapBack], 
     variations: [
       {
         color: "Black",
