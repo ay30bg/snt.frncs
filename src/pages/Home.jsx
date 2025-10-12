@@ -55,7 +55,7 @@ export default function Home({ addToCart, addToWishlist }) {
         const baseUrl =
           process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-        const res = await fetch(`${baseUrl}/api/products`);
+        const res = await fetch(`${baseUrl}/products`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();
@@ -103,3 +103,4 @@ export default function Home({ addToCart, addToWishlist }) {
     </>
   );
 }
+
