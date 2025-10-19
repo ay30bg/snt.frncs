@@ -57,8 +57,7 @@ export default function ShippingPage() {
     // Initialize Paystack payment
     const paystack = new PaystackPop();
     paystack.newTransaction({
-      //key: "pk_live_8895e1381b272d79c3bb20d7b482a78ec92406a6", // Replace with your Paystack public key
-      key: "pk_test_8fa5dfa8fbd19d1ef103d0a0a000c4456f3bc1bf",
+      key: "pk_live_8895e1381b272d79c3bb20d7b482a78ec92406a6", // Replace with your Paystack public key
       email: finalAddress.email,
       amount: checkoutData.total * 100, // Paystack expects amount in kobo
       currency: "NGN",
@@ -220,6 +219,7 @@ export default function ShippingPage() {
     </div>
   );
 }
+
 
 
 
